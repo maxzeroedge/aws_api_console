@@ -1,8 +1,11 @@
 <template>
 	<v-container>
 		<v-flex xs12>
-			<v-text-field v-model="searchTerm"></v-text-field>
-			<v-btn @click="updateSearch">Search</v-btn>
+			<v-text-field 
+				v-model="searchTerm"
+				append-outer-icon="mdi-magnify"
+				@click:append-outer="updateSearch"
+			></v-text-field>
 			<v-list>
 				<v-list-item v-for="(item, index) in items" :key="index.id" style="list-style:none">
 					<span @click="loadLogEvents(item.title)">{{item.id.split(":")[8]}}</span>
@@ -40,9 +43,13 @@ export default {
 			}
 			const logs = await this.$store.dispatch("getLogStreams", params);
 			if(logs.logStreams){
-				logs.logStreams.forEach(v=>{
-					this.items.push(v)
-				});
+				if(attrs) {
+					this.items = logs.logGroups;
+				} else {
+					logs.logGroups.forEach(v=>{
+						this.items.push(v)
+					});
+				}
 			}
 			this.nextToken = logs.nextToken;
 		},
@@ -51,7 +58,9 @@ export default {
 			this.$router.push({path: `/log/${this.group}/${name}`})
 		},
 		async updateSearch(){
-			await this.loadMoreLogs({searchTerm: this.searchTerm})
+			if(this.searchTerm && this.searchTerm.length > 3){
+				await this.loadMoreLogs({searchTerm: this.searchTerm})
+			}
 		}
 	}
 }
