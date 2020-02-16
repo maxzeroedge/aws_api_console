@@ -1,7 +1,7 @@
 'use strict';
 
 import * as AWS from 'aws-sdk';
-import * as utils from '../utils';
+import {utils} from '../utils';
 
 export const getLogGroups = async (attrs) => {
     AWS.config.update({

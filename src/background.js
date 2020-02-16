@@ -1,8 +1,5 @@
 'use strict'
 
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
-
 import { app, protocol, BrowserWindow } from 'electron'
 import {
 	createProtocol,

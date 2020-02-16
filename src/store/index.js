@@ -12,9 +12,15 @@ export default new Vuex.Store({
 	mutations: {
 	},
 	actions: {
-		getLogGroups,
-		getLogStreams,
-		getLogEvents
+		getLogGroups(_, payload){
+			return getLogGroups(payload)
+		},
+		getLogStreams(_, payload){
+			return getLogStreams(payload)
+		},
+		getLogEvents(_, payload){
+			return getLogEvents(payload)
+		}
 	},
 	modules: {
 	}

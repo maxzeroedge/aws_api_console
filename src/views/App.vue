@@ -1,5 +1,10 @@
 <template>
 	<v-app>
+		<v-container>
+			<v-flex xs4>
+				<v-btn @click="goHome">Home</v-btn>
+			</v-flex>
+		</v-container>
 		<router-view />
 	</v-app>
 </template>
@@ -7,7 +12,12 @@
 <script>
 
 export default {
-	name: 'App'
+	name: 'App',
+	methods: {
+		goHome(){
+			this.$router.push({path: "/"})
+		}
+	}
 }
 </script>
 

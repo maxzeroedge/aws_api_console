@@ -30,13 +30,17 @@ export default {
 				params.nextToken = this.nextToken
 			}
 			const logs = await this.$store.dispatch("getLogGroups", params);
-			this.items = logs.logGroups;
+			if(logs.logGroups){
+				logs.logGroups.forEach(v=>{
+					this.items.push(v)
+				});
+			}
 			this.nextToken = logs.nextToken;
-			console.log(this.items);
 		},
-		loadLogStreams(id){
-			console.log(id)
-			this.$router.push("/log/${id}")
+		loadLogStreams(name){
+			name = btoa(name)
+			console.log(name)
+			this.$router.push({path: `/stream/${name}`})
 		}
 	}
 }

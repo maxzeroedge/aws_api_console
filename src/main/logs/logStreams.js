@@ -1,7 +1,7 @@
 'use strict';
 
 import * as AWS from 'aws-sdk';
-import * as utils from '../utils';
+import {utils} from '../utils';
 
 const orderTypes = ["LogStreamName", "LastEventTime"]
 
@@ -36,11 +36,12 @@ export const getLogStreams = async (attrs) => {
         if(attrs.descending != undefined){
             params.descending = attrs.descending;
         }
+        console.log(params, attrs)
         let logStreams = await CloudWatchLogs.describeLogStreams(params).promise();
         return {
             logStreams: logStreams.$response.data.logStreams.map(v=>{
                 return {
-                    "title": v.logGroupName,
+                    "title": v.logStreamName,
                     "id": v.arn,
                     "createdOn": v.creationTime,
                     "firstEventTimestamp": v.firstEventTimestamp,

@@ -1,7 +1,7 @@
 'use strict';
 
 import * as AWS from 'aws-sdk';
-import * as utils from '../utils';
+import {utils} from '../utils';
 
 
 export const getLogEvents = async (attrs) => {
@@ -22,6 +22,7 @@ export const getLogEvents = async (attrs) => {
         if(attrs.nextToken){
             params.nextToken = attrs.nextToken;
         }
+        console.log(params)
         let logEvents = await CloudWatchLogs.getLogEvents(params).promise();
         return {
             logEvents: logEvents.$response.data.events.map(v=>{
