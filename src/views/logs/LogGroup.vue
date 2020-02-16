@@ -1,6 +1,8 @@
 <template>
 	<v-container>
 		<v-flex xs12>
+			<v-text-field v-model="searchTerm"></v-text-field>
+			<v-btn @click="updateSearch">Search</v-btn>
 			<v-list>
 				<v-list-item v-for="(item, index) in items" :key="index.id" style="list-style:none">
 					<span :data-id="item.id" @click="loadLogStreams(item.title)">{{item.title}}</span>
@@ -16,6 +18,7 @@ export default {
 	name: 'LogHome',
 	data(){
 		return {
+			searchTerm: '',
 			items: [],
 			nextToken: ''
 		}
@@ -24,9 +27,11 @@ export default {
 		await this.loadMoreLogs()
 	},
 	methods: {
-		async loadMoreLogs(){
+		async loadMoreLogs(attrs){
 			const params = {}
-			if(this.nextToken){
+			if(attrs){
+				params.searchTerm = attrs.searchTerm
+			} else if(this.nextToken){
 				params.nextToken = this.nextToken
 			}
 			const logs = await this.$store.dispatch("getLogGroups", params);
@@ -40,6 +45,9 @@ export default {
 		loadLogStreams(name){
 			name = btoa(name)
 			this.$router.push({path: `/stream/${name}`})
+		},
+		async updateSearch(){
+			await this.loadMoreLogs({searchTerm: this.searchTerm})
 		}
 	}
 }
