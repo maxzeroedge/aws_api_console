@@ -23,4 +23,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-Make sure to add your credentials in `.env` file
+Make sure to add your credentials in one of the following locations:
+- `.aws/credentials` which is the default way for aws
+- `aws_credentials` file in home directory
+- `aws_credentials` file in app's user directory
