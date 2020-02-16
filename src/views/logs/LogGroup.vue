@@ -39,7 +39,6 @@ export default {
 		},
 		loadLogStreams(name){
 			name = btoa(name)
-			console.log(name)
 			this.$router.push({path: `/stream/${name}`})
 		}
 	}

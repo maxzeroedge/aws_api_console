@@ -44,7 +44,6 @@ export default {
 		},
 		loadLogEvents(name){
 			name = btoa(name)
-			console.log(name)
 			this.$router.push({path: `/log/${this.group}/${name}`})
 		}
 	}

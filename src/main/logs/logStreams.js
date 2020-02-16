@@ -36,7 +36,6 @@ export const getLogStreams = async (attrs) => {
         if(attrs.descending != undefined){
             params.descending = attrs.descending;
         }
-        console.log(params, attrs)
         let logStreams = await CloudWatchLogs.describeLogStreams(params).promise();
         return {
             logStreams: logStreams.$response.data.logStreams.map(v=>{

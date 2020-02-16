@@ -26,9 +26,7 @@ export const getLogGroups = async (attrs) => {
                 params.limit = 50;
             }
         }
-        console.log("Fetching!!")
         let logGroups = await CloudWatchLogs.describeLogGroups(params).promise();
-        console.log("Fetched!!")
         return {
             logGroups: logGroups.$response.data.logGroups.map(v=>{
                 return {

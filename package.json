@@ -1,5 +1,7 @@
 {
   "name": "aws_api_console",
+  "author": "maxzeroedge",
+  "description": "Console GUI to access AWS through API",
   "version": "0.1.0",
   "private": true,
   "scripts": {
