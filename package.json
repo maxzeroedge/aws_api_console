@@ -1,6 +1,9 @@
 {
   "name": "aws_api_console",
-  "author": "maxzeroedge",
+  "author": {
+    "name": "Palash",
+    "email": "maxzeroedge@gmail.com"
+  },
   "description": "Console GUI to access AWS through API",
   "version": "0.1.0",
   "private": true,
