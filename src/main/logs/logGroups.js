@@ -19,7 +19,7 @@ export const getLogGroups = async (attrs) => {
             if(attrs.searchTerm){
                 params.logGroupNamePrefix = attrs.searchTerm;
             }
-            if(attrs.lastKey){
+            if(attrs.nextToken){
                 params.nextToken = attrs.nextToken;
             }
             if(attrs.limit){
