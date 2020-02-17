@@ -4,7 +4,7 @@ import electron from 'electron';
 
 const homedir = os.homedir();
 let file = ''
-if(fs.existsSync(file)){
+if(fs.existsSync(`${homedir}/.aws/credentials`)){
     file = `${homedir}/.aws/credentials`
 } else if(fs.existsSync(`${homedir}/aws_credentials`)){
     file = `${homedir}/aws_credentials`
@@ -19,7 +19,14 @@ fs.readFileSync(file, {encoding: 'UTF-8'}).split("\n").forEach(v=>{
     if(firstEquals < 0){
         return;
     }
-    creds[v.substring(0, firstEquals).trim()] = v.substring(firstEquals+1).trim()
+    let key = v.substring(0, firstEquals).trim();
+    const value = v.substring(firstEquals+1).trim();
+    if(key == "aws_access_key_id"){
+        key = "ACCESS_KEY"
+    } else if(key == "aws_secret_access_key"){
+        key = "ACCESS_SECRET"
+    }
+    creds[key] = value
 });
 
 export const utils = creds;
