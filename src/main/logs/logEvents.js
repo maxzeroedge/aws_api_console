@@ -9,7 +9,7 @@ export const getLogEvents = async (attrs) => {
         "accessKeyId":utils.ACCESS_KEY,
         "secretAccessKey":utils.ACCESS_SECRET,
         "signatureVersion":"v4",
-        "region": utils.AWS_REGION
+        "region": utils.AWS_REGION || "us-east-1"
     })
     const CloudWatchLogs = new AWS.CloudWatchLogs();
     try{

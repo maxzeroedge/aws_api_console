@@ -10,7 +10,7 @@
 				<v-list-item v-for="(item, index) in items" :key="index.id" style="list-style:none">
 					<span :data-id="item.id" @click="loadLogStreams(item.title)">{{item.title}}</span>
 				</v-list-item>
-				<v-btn @click="loadMoreLogs" v-if="nextToken">Load More</v-btn>
+				<v-btn @click="loadMoreLogs" v-if="nextToken" ref="loadingButton">{{loadMoreText}}</v-btn>
 			</v-list>
 		</v-flex>
 	</v-container>
@@ -23,7 +23,8 @@ export default {
 		return {
 			searchTerm: '',
 			items: [],
-			nextToken: ''
+			nextToken: '',
+			loadMoreText: 'Load More'
 		}
 	},
 	async mounted(){
@@ -31,15 +32,16 @@ export default {
 	},
 	methods: {
 		async loadMoreLogs(attrs){
+			this.loadMoreText = "Loading...."
 			const params = {}
-			if(attrs){
+			if(attrs && attrs.searchTerm){
 				params.searchTerm = attrs.searchTerm
 			} else if(this.nextToken){
 				params.nextToken = this.nextToken
 			}
 			const logs = await this.$store.dispatch("getLogGroups", params);
 			if(logs.logGroups){
-				if(attrs) {
+				if(attrs && attrs.searchTerm) {
 					this.items = logs.logGroups;
 				} else {
 					logs.logGroups.forEach(v=>{
@@ -48,6 +50,7 @@ export default {
 				}
 			}
 			this.nextToken = logs.nextToken;
+			this.loadMoreText = "Load More"
 		},
 		loadLogStreams(name){
 			name = btoa(name)

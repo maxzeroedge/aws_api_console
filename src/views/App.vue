@@ -3,6 +3,7 @@
 		<v-container>
 			<v-flex xs4>
 				<v-btn @click="goHome">Home</v-btn>
+				<v-btn @click="goBack">Back</v-btn>
 			</v-flex>
 		</v-container>
 		<router-view />
@@ -15,7 +16,10 @@ export default {
 	name: 'App',
 	methods: {
 		goHome(){
-			this.$router.push({path: "/"})
+			this.$router.push({path: "/"});
+		},
+		goBack(){
+			this.$router.go(-1);
 		}
 	}
 }

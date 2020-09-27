@@ -24,7 +24,8 @@ export default {
 		return {
 			group: '',
 			items: [],
-			nextToken: ''
+			nextToken: '',
+			searchTerm: ''
 		}
 	},
 	async mounted(){
@@ -36,17 +37,17 @@ export default {
 			const params = {
 				logGroupName: atob(this.group)
 			}
-			if(attrs){
+			if(attrs && attrs.searchTerm){
 				params.searchTerm = attrs.searchTerm
 			} else if(this.nextToken){
 				params.nextToken = this.nextToken
 			}
 			const logs = await this.$store.dispatch("getLogStreams", params);
 			if(logs.logStreams){
-				if(attrs) {
-					this.items = logs.logGroups;
+				if(attrs && attrs.searchTerm) {
+					this.items = logs.logStreams;
 				} else {
-					logs.logGroups.forEach(v=>{
+					logs.logStreams.forEach(v=>{
 						this.items.push(v)
 					});
 				}
